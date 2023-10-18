@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const CarouselSchema = new mongoose.Schema({
-  Image: {
+  ImageUrl: {
     type: String,
     require: true,
   },

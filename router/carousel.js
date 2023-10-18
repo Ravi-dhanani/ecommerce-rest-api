@@ -4,10 +4,10 @@ require("../db/conn");
 const carousel = require("../modals/carousel.js");
 
 router.post("/api/addCarousel", async (req, res) => {
-  const { Image, Title } = req.body;
+  const { ImageUrl, Title } = req.body;
   var datetime = new Date();
   const date = datetime.toISOString().slice(0, 10);
-  if (!Image || !Title) {
+  if (!ImageUrl || !Title) {
     return res.json({ error: "please Data Enter Properly", status: false });
   }
 
@@ -17,7 +17,7 @@ router.post("/api/addCarousel", async (req, res) => {
       return res.json({ message: "Carousal  AlreadyExits", status: false });
     } else {
       const carousalData = new carousel({
-        Image,
+        ImageUrl,
         Title,
         Date: date,
       });
