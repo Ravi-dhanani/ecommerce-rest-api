@@ -26,7 +26,11 @@ router.post("/api/addCategory", async (req, res) => {
 
       await categoryData.save();
 
-      res.json({ message: "Category Add Successfully", status: 200 });
+      res.send({
+        message: "Category Add Successfully",
+        success: true,
+        status: 200,
+      });
     }
   } catch (err) {
     res.json({ message: "Invalid Category", status: false });
