@@ -48,6 +48,18 @@ router.get("/api/getCategory", async (req, res) => {
   }
 });
 
+router.get("/api/getCategory/:id", async (req, res) => {
+  try {
+    const lstCategory = await category.findById({
+      id: req.params.id,
+    });
+    res.send({ data: lstCategory, message: "Category", status: 200 });
+  } catch (ex) {
+    res.json({ message: "Category invalid", status: false });
+    console.log(ex);
+  }
+});
+
 router.put("/api/updateCategory/:id", async (req, res) => {
   try {
     const updateCategory = await category.updateOne(
