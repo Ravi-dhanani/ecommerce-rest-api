@@ -26,7 +26,7 @@ router.post("/api/addCategory", async (req, res) => {
       if (result.public_id && result.url) {
         const categoryData = new category({
           CategoryImage: result.url,
-          CategoryTitle,
+          CategoryTitle: req.body.CategoryTitle,
           Public_id: result.public_id,
           Date: date,
         });
@@ -80,7 +80,7 @@ router.put("/api/updateCategory/:id", async (req, res) => {
         CategoryTitle: req.body.CategoryTitle,
         CategoryImage: req.body.CategoryImage,
       };
-      const updateCategoryData = await carousel.findByIdAndUpdate(
+      const updateCategoryData = await category.findByIdAndUpdate(
         req.params.id,
         data,
         { new: true }
