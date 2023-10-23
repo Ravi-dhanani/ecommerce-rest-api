@@ -14,6 +14,8 @@ app.use(require("./router/carousel"));
 app.use(require("./router/variant"));
 app.use(require("./router/category"));
 app.use(require("./router/subCategory"));
+app.use(require("./router/color.js"));
+app.use(require("./router/size.js"));
 app.use(require("./router/product"));
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(
