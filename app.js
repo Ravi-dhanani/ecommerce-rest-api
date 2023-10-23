@@ -15,7 +15,6 @@ app.use(require("./router/variant"));
 app.use(require("./router/category"));
 app.use(require("./router/subCategory"));
 app.use(require("./router/product"));
-
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(
   bodyParser.urlencoded({
@@ -24,7 +23,6 @@ app.use(
     limit: "5000mb",
   })
 );
-
 app.get("*", (req, res, next) => {
   res.status(200).json({
     message: "bad request",

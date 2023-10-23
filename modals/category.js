@@ -4,6 +4,10 @@ const CategorySchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  Public_id: {
+    type: String,
+    require: false,
+  },
   CategoryTitle: {
     type: String,
     require: true,

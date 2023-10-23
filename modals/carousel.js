@@ -4,6 +4,10 @@ const CarouselSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  Public_id: {
+    type: String,
+    require: false,
+  },
   Title: {
     type: String,
     require: true,
