@@ -3,29 +3,30 @@ const router = express.Router();
 require("../db/conn");
 const carousel = require("../modals/carousel.js");
 const cloudinary = require("../db/cloudinary");
+const Authenticate = require("../middleware/authenthicate");
 
 router.post("/api/addCarousel", async (req, res) => {
-  const { ImageUrl, Title } = req.body;
-  const file = req.body.ImageUrl;
+  const { imageUrl, title } = req.body;
+  const file = req.body.imageUrl;
   const result = await cloudinary.uploader.upload(file, {
     upload_preset: "ecommerce-images",
   });
   var datetime = new Date();
   const date = datetime.toISOString().slice(0, 10);
-  if (!ImageUrl || !Title) {
+  if (!imageUrl || !title) {
     return res.json({ error: "please Data Enter Properly", status: false });
   }
 
   try {
-    const carouselExits = await carousel.findOne({ Title: Title });
+    const carouselExits = await carousel.findOne({ title: title });
     if (carouselExits) {
       return res.json({ message: "Carousal  AlreadyExits", status: false });
     } else {
       if (result.public_id && result.url) {
         const carousalData = new carousel({
-          ImageUrl: result.url,
-          Public_id: result.public_id,
-          Title,
+          imageUrl: result.url,
+          public_Id: result.public_id,
+          title,
           Date: date,
         });
 
@@ -54,15 +55,15 @@ router.get("/api/getCarousel", async (req, res) => {
 });
 
 router.put("/api/updateCarousel/:id", async (req, res) => {
-  const file = req.body.ImageUrl;
+  const file = req.body.imageUrl;
   const updatecarousel = await carousel.findById(req.params.id);
-  if (req.body.ImageUrl !== "") {
-    const public_id = updatecarousel.Public_id;
+  if (req.body.imageUrl !== "") {
+    const public_id = updatecarousel.public_Id;
 
-    if (updatecarousel.ImageUrl == req.body.ImageUrl) {
+    if (updatecarousel.imageUrl == req.body.imageUrl) {
       const data = {
-        Title: req.body.Title,
-        ImageUrl: req.body.ImageUrl,
+        title: req.body.title,
+        imageUrl: req.body.imageUrl,
       };
       const updateCarouselData = await carousel.findByIdAndUpdate(
         req.params.id,
@@ -102,7 +103,7 @@ router.put("/api/updateCarousel/:id", async (req, res) => {
 
 router.get("/api/deleteCarousel/:id", async (req, res) => {
   const deleteId = await carousel.findById(req.params.id);
-  const public_id = deleteId.Public_id;
+  const public_id = deleteId.public_Id;
   if (public_id) {
     await cloudinary.uploader.destroy(public_id);
     await carousel.findByIdAndRemove(req.params.id).then((data) => {

@@ -8,37 +8,60 @@ const ProductsSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  Slug: {
+    type: String,
+    require: true,
+  },
   Description: {
     type: String,
     require: true,
   },
-  Ram: {
-    type: String,
-    require: true,
-  },
 
-  Variant: {
-    type: String,
-    require: true,
-  },
+  Size: [
+    {
+      _id: {
+        type: String,
+        require: true,
+      },
+      Size: {
+        type: String,
+        require: true,
+      },
+      Date: {
+        type: String,
+        require: true,
+      },
+    },
+  ],
 
-  Arrivals: {
-    type: String,
-    require: true,
-  },
+  Color: [
+    {
+      _id: {
+        type: String,
+        require: true,
+      },
+      ColorName: {
+        type: String,
+        require: true,
+      },
+      ColorCode: {
+        type: String,
+        require: true,
+      },
+      Date: {
+        type: String,
+        require: true,
+      },
+    },
+  ],
 
-  MainImage: {
-    type: String,
-    require: false,
-  },
+  Images: [String],
+
   Price: {
     type: Number,
     require: false,
   },
-  Color: {
-    type: String,
-    require: false,
-  },
+
   Date: {
     type: String,
     require: false,
