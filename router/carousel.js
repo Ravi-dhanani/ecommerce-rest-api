@@ -83,9 +83,9 @@ router.put("/api/updateCarousel/:id", async (req, res) => {
         upload_preset: "ecommerce-images",
       });
       const data = {
-        Title: req.body.Title,
-        ImageUrl: newImage.url,
-        Public_id: newImage.public_id,
+        title: req.body.title,
+        imageUrl: newImage.url,
+        public_id: newImage.public_id,
       };
       const updateCarouselData = await carousel.findByIdAndUpdate(
         req.params.id,
