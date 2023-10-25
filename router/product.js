@@ -5,41 +5,46 @@ const product = require("../modals/product");
 
 router.post("/api/addProduct", async (req, res) => {
   const {
-    Title,
-    Description,
-    Ram,
-    Variant,
-    MainImage,
-    Category,
-    Price,
-    Arrivals,
-    Color,
+    title,
+    description,
+    category,
+    subCategory,
+    price,
+    size,
+    color,
+    slug,
+    images,
   } = req.body;
 
+  var datetime = new Date();
+  const date = datetime.toISOString().slice(0, 10);
+
   if (
-    !Title ||
-    !Description ||
-    !Ram ||
-    !Variant ||
-    !MainImage ||
-    !Price ||
-    !Arrivals ||
-    !Color
+    !title ||
+    !description ||
+    !category ||
+    !price ||
+    !size ||
+    !color ||
+    !slug ||
+    !images ||
+    !subCategory
   ) {
     return res.json({ error: "please Data Enter Properly", status: false });
   }
 
   try {
     const AddProduct = new product({
-      Title,
-      Description,
-      Ram,
-      Variant,
-      MainImage,
-      Category,
-      Price,
-      Arrivals,
-      Color,
+      title,
+      description,
+      category,
+      price,
+      size,
+      color,
+      slug,
+      images,
+      subCategory,
+      Date: date,
     });
 
     await AddProduct.save();

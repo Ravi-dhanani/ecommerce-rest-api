@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 const SubCategorySchema = new mongoose.Schema({
-  SubCategoryImage: {
+  subCategoryImage: {
     type: String,
     require: true,
   },
-  Public_id: {
+  public_id: {
     type: String,
     require: false,
   },
-  SubCategoryTitle: {
+  subCategoryTitle: {
     type: String,
     require: true,
   },
-  CategoryId: {
+  categoryId: {
     type: String,
     require: true,
   },

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const SizeSchema = new mongoose.Schema({
-  Size: {
+  sizeName: {
     type: String,
     require: true,
   },

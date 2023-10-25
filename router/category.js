@@ -5,29 +5,29 @@ const category = require("../modals/category");
 const cloudinary = require("../db/cloudinary");
 
 router.post("/api/addCategory", async (req, res) => {
-  const { CategoryImage, CategoryTitle } = req.body;
-  const file = req.body.CategoryImage;
+  const { categoryImage, categoryTitle } = req.body;
+  const file = req.body.categoryImage;
   const result = await cloudinary.uploader.upload(file, {
     upload_preset: "ecommerce-images",
   });
   var datetime = new Date();
   const date = datetime.toISOString().slice(0, 10);
-  if (!CategoryImage || !CategoryTitle) {
+  if (!categoryImage || !categoryTitle) {
     return res.json({ error: "please Data Enter Properly", status: false });
   }
 
   try {
     const CategoryExits = await category.findOne({
-      CategoryTitle: CategoryTitle,
+      categoryTitle: categoryTitle,
     });
     if (CategoryExits) {
       return res.json({ error: "Category  AlreadyExits" });
     } else {
       if (result.public_id && result.url) {
         const categoryData = new category({
-          CategoryImage: result.url,
-          CategoryTitle: req.body.CategoryTitle,
-          Public_id: result.public_id,
+          categoryImage: result.url,
+          categoryTitle: req.body.categoryTitle,
+          public_id: result.public_id,
           Date: date,
         });
 
@@ -69,16 +69,16 @@ router.get("/api/getCategory/:id", async (req, res) => {
 });
 
 router.put("/api/updateCategory/:id", async (req, res) => {
-  const file = req.body.CategoryImage;
+  const file = req.body.categoryImage;
   const updatecategory = await category.findById(req.params.id);
 
   if (req.body.CategoryImage !== "") {
-    const public_id = updatecategory.Public_id;
+    const public_id = updatecategory.public_id;
 
-    if (updatecategory.CategoryImage == req.body.CategoryImage) {
+    if (updatecategory.categoryImage == req.body.categoryImage) {
       const data = {
-        CategoryTitle: req.body.CategoryTitle,
-        CategoryImage: req.body.CategoryImage,
+        categoryTitle: req.body.categoryTitle,
+        categoryImage: req.body.categoryImage,
       };
       const updateCategoryData = await category.findByIdAndUpdate(
         req.params.id,
@@ -98,9 +98,9 @@ router.put("/api/updateCategory/:id", async (req, res) => {
         upload_preset: "ecommerce-images",
       });
       const data = {
-        CategoryTitle: req.body.CategoryTitle,
-        CategoryImage: newImage.url,
-        Public_id: newImage.public_id,
+        categoryTitle: req.body.categoryTitle,
+        categoryImage: newImage.url,
+        public_id: newImage.public_id,
       };
       const updateCategoryData = await category.findByIdAndUpdate(
         req.params.id,
@@ -118,7 +118,7 @@ router.put("/api/updateCategory/:id", async (req, res) => {
 
 router.get("/api/deleteCategory/:id", async (req, res) => {
   const deleteId = await category.findById(req.params.id);
-  const public_id = deleteId.Public_id;
+  const public_id = deleteId.public_id;
   if (public_id) {
     await cloudinary.api.delete_resources_by_prefix(public_id);
     await category.findByIdAndRemove(req.params.id).then((data) => {

@@ -4,19 +4,19 @@ require("../db/conn");
 const color = require("../modals/color");
 
 router.post("/api/addColor", async (req, res) => {
-  const { ColorName, ColorCode } = req.body;
+  const { colorName, colorCode } = req.body;
 
   var datetime = new Date();
   const date = datetime.toISOString().slice(0, 10);
 
-  if (!ColorName) {
+  if (!colorName) {
     return res.json({ error: "please Data Enter Properly", status: false });
   }
 
   try {
     const colorData = new color({
-      ColorName,
-      ColorCode,
+      colorName,
+      colorCode,
       Date: date,
     });
 

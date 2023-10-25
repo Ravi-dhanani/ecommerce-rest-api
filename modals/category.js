@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 const CategorySchema = new mongoose.Schema({
-  CategoryImage: {
+  categoryImage: {
     type: String,
     require: true,
   },
-  Public_id: {
+  public_id: {
     type: String,
     require: false,
   },
-  CategoryTitle: {
+  categoryTitle: {
     type: String,
     require: true,
   },

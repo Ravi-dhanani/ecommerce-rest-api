@@ -1,29 +1,33 @@
 const mongoose = require("mongoose");
 const ProductsSchema = new mongoose.Schema({
-  Category: {
+  category: {
     type: String,
     require: true,
   },
-  Title: {
+  subCategory: {
     type: String,
     require: true,
   },
-  Slug: {
+  title: {
     type: String,
     require: true,
   },
-  Description: {
+  slug: {
+    type: String,
+    require: true,
+  },
+  description: {
     type: String,
     require: true,
   },
 
-  Size: [
+  size: [
     {
       _id: {
         type: String,
         require: true,
       },
-      Size: {
+      size: {
         type: String,
         require: true,
       },
@@ -34,17 +38,17 @@ const ProductsSchema = new mongoose.Schema({
     },
   ],
 
-  Color: [
+  color: [
     {
       _id: {
         type: String,
         require: true,
       },
-      ColorName: {
+      colorName: {
         type: String,
         require: true,
       },
-      ColorCode: {
+      colorCode: {
         type: String,
         require: true,
       },
@@ -55,9 +59,9 @@ const ProductsSchema = new mongoose.Schema({
     },
   ],
 
-  Images: [String],
+  images: [String],
 
-  Price: {
+  price: {
     type: Number,
     require: false,
   },

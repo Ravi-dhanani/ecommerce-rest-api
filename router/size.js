@@ -4,21 +4,21 @@ require("../db/conn");
 const size = require("../modals/size");
 
 router.post("/api/addSize", async (req, res) => {
-  const { Size } = req.body;
+  const { sizeName } = req.body;
 
   var datetime = new Date();
   const date = datetime.toISOString().slice(0, 10);
 
-  if (!Size) {
+  if (!sizeName) {
     return res.status(422).json({ error: "please field Enter Properly" });
   }
   try {
-    const sizeExits = await size.findOne({ Size: Size });
+    const sizeExits = await size.findOne({ sizeName: sizeName });
     if (sizeExits) {
       return res.status(422).json({ error: "Size   AlreadyExits" });
     } else {
       const sizeData = new size({
-        Size,
+        sizeName,
         Date: date,
       });
 
