@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 require("../db/conn");
 const product = require("../modals/product");
+const cloudinary = require("../db/cloudinary");
 
 router.post("/api/addProduct", async (req, res) => {
   const {
@@ -16,6 +17,15 @@ router.post("/api/addProduct", async (req, res) => {
     images,
   } = req.body;
 
+  const multiimages = req.body.images;
+  const tempArray = [];
+  for (const image of multiimages) {
+    const result = await cloudinary.uploader.upload(image);
+    tempArray.push({
+      public_id: result.public_id,
+      url: result.url,
+    });
+  }
   var datetime = new Date();
   const date = datetime.toISOString().slice(0, 10);
 
@@ -42,16 +52,20 @@ router.post("/api/addProduct", async (req, res) => {
       size,
       color,
       slug,
-      images,
+      images: tempArray,
       subCategory,
       Date: date,
     });
 
     await AddProduct.save();
 
-    res.json({ message: "Product Add Successfully", status: 200 });
+    res.send({
+      message: "Product Add Successfully",
+      success: true,
+      status: 200,
+    });
   } catch (err) {
-    res.json({ message: "Invalid Product", status: false });
+    res.json({ message: "Invalid Carousel", status: false });
     console.log(err);
   }
 });
@@ -80,13 +94,22 @@ router.get("/api/getProduct/:id", async (req, res) => {
 });
 
 router.put("/api/updateProduct/:id", async (req, res) => {
+  const data = {
+    category: req.body.category,
+    subCategory: req.body.subCategory,
+    title: req.body.title,
+    slug: req.body.slug,
+    description: req.body.description,
+    size: req.body.size,
+    color: req.body.color,
+    images: req.body.images,
+    price: req.body.category,
+  };
+
   try {
-    const updateProduct = await product.updateOne(
-      {
-        _id: req.params.id,
-      },
-      req.body
-    );
+    const updateProduct = await product.findByIdAndUpdate(req.params.id, data, {
+      new: true,
+    });
     res.send({
       data: updateProduct,
       message: "Product Update Successfully",

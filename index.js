@@ -9,15 +9,15 @@ const Authenticate = require("./middleware/authenthicate.js");
 const app = express();
 app.use(express.json({ limit: "10mb" }));
 app.use(cors({}));
-app.use(require("./router/auth"));
+app.use(require("./router/auth.js"));
 // app.use(require("./middleware/authenthicate.js"));
-app.use(require("./router/admin"));
-app.use(require("./router/carousel"));
-app.use(require("./router/category"));
-app.use(require("./router/subCategory"));
+app.use(require("./router/admin.js"));
+app.use(require("./router/carousel.js"));
+app.use(require("./router/category.js"));
+app.use(require("./router/subCategory.js"));
 app.use(require("./router/color.js"));
 app.use(require("./router/size.js"));
-app.use(require("./router/product"));
+app.use(require("./router/product.js"));
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(
   bodyParser.urlencoded({

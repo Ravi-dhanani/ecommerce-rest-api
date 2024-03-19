@@ -24,7 +24,7 @@ router.post("/admin/register", async (req, res) => {
 
       await admin.save();
 
-      res.status(201).json({ message: "admin Register Successfully" });
+      res.json({ message: "admin Register Successfully", status: false });
     }
   } catch (err) {
     console.log(err);
@@ -75,10 +75,10 @@ router.post("/admin/login", async (req, res) => {
       if (!isMatch) {
         return res.status(400).json({ error: "Invalid Credientials" });
       } else {
-        return res.status(200).json({
+        return res.json({
           message: "Admin login Successfully",
           token: token,
-          status: 200,
+          status: false,
           data: adminLogin,
         });
       }

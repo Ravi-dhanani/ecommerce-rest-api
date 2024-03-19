@@ -1,13 +1,49 @@
 const mongoose = require("mongoose");
 const ProductsSchema = new mongoose.Schema({
-  category: {
-    type: String,
-    require: true,
-  },
-  subCategory: {
-    type: String,
-    require: true,
-  },
+  category: [
+    {
+      categoryImage: {
+        type: String,
+        require: true,
+      },
+      public_id: {
+        type: String,
+        require: false,
+      },
+      categoryTitle: {
+        type: String,
+        require: true,
+      },
+      Date: {
+        type: String,
+        require: true,
+      },
+    },
+  ],
+  subCategory: [
+    {
+      subCategoryImage: {
+        type: String,
+        require: true,
+      },
+      public_id: {
+        type: String,
+        require: false,
+      },
+      subCategoryTitle: {
+        type: String,
+        require: true,
+      },
+      categoryId: {
+        type: String,
+        require: true,
+      },
+      Date: {
+        type: String,
+        require: true,
+      },
+    },
+  ],
   title: {
     type: String,
     require: true,
@@ -27,7 +63,7 @@ const ProductsSchema = new mongoose.Schema({
         type: String,
         require: true,
       },
-      size: {
+      sizeName: {
         type: String,
         require: true,
       },
@@ -59,7 +95,18 @@ const ProductsSchema = new mongoose.Schema({
     },
   ],
 
-  images: [String],
+  images: [
+    {
+      public_Id: {
+        type: String,
+        require: false,
+      },
+      url: {
+        type: String,
+        require: true,
+      },
+    },
+  ],
 
   price: {
     type: Number,

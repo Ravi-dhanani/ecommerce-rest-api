@@ -118,7 +118,7 @@ router.put("/api/updateCategory/:id", async (req, res) => {
 
 router.get("/api/deleteCategory/:id", async (req, res) => {
   const deleteId = await category.findById(req.params.id);
-  const public_id = deleteId.public_id;
+  const public_id = deleteId?.public_id;
   if (public_id) {
     await cloudinary.api.delete_resources_by_prefix(public_id);
     await category.findByIdAndRemove(req.params.id).then((data) => {
