@@ -61,8 +61,13 @@ const ProductsSchema = new mongoose.Schema({
 
   images: [
     {
-      img: {
+      public_Id: {
         type: String,
+        require: false,
+      },
+      url: {
+        type: String,
+        require: true,
       },
     },
   ],
