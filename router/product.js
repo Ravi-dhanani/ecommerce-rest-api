@@ -19,12 +19,12 @@ router.post("/api/addProduct", async (req, res) => {
 
   const multiimages = req.body.images;
   const tempArray = [];
-  for (const image of multiimages) {
-    const result = await cloudinary.uploader.upload(image);
-    tempArray.push({
-      public_id: result.public_id,
-      url: result.url,
-    });
+  for (const img of multiimages) {
+    for (const images of img) {
+      tempArray.push({
+        img: images,
+      });
+    }
   }
   var datetime = new Date();
   const date = datetime.toISOString().slice(0, 10);
