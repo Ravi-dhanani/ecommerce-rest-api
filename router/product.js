@@ -83,8 +83,9 @@ router.get("/api/getProduct", async (req, res) => {
 router.get("/api/getProduct/:slug", async (req, res) => {
   try {
     const getProduct = await product.findById({
-      _id: req.params.slug,
+      slug: req.params.slug,
     });
+    console.log(getProduct);
     res.status(200).send({ data: getProduct, status: 200 });
   } catch (ex) {
     res.json({ message: "Product  invalid", status: false });
