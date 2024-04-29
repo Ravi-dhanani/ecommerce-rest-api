@@ -80,10 +80,10 @@ router.get("/api/getProduct", async (req, res) => {
   }
 });
 
-router.get("/api/getProduct/:id", async (req, res) => {
+router.get("/api/getProduct/:slug", async (req, res) => {
   try {
     const getProduct = await product.findById({
-      _id: req.params.id,
+      _id: req.params.slug,
     });
     res.status(200).send({ data: getProduct, status: 200 });
   } catch (ex) {
