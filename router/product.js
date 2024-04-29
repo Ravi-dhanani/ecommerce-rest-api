@@ -82,7 +82,7 @@ router.get("/api/getProduct", async (req, res) => {
 
 router.get("/api/getProduct/:slug", async (req, res) => {
   try {
-    const getProduct = await product.findById({
+    const getProduct = await product.find({
       slug: req.params.slug,
     });
     console.log(getProduct);

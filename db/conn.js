@@ -9,7 +9,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("database connected");
+    console.log("MongoDB connected");
   })
   .catch((err) => {
     console.log("Could not connect", err);
